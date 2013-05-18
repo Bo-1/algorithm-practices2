@@ -4,7 +4,7 @@ public class Solution {
         // DO NOT write main() function
         return binarySearch(A, target, 0, A.length - 1);
     }
-    
+//remember always return start    
     public int binarySearch(int[] A, int target, int start, int end) {
             if(start <= end) {
                 int mid = start + (end - start) / 2;
