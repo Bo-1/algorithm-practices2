@@ -2,30 +2,28 @@ public class Solution {
     public boolean isValidSudoku(char[][] board) {
         // Start typing your Java solution below
         // DO NOT write main() function
-        Set<Character> set = new HashSet<Character>();
+        Set<Character> rowSet = new HashSet<Character>();
+        Set<Character> colSet = new HashSet<Character>();
         for(int i = 0; i < 9 ; i++) {
-            set.clear();
+            rowSet.clear();
+            colSet.clear();
             for(int j = 0; j < 9; j++) {
                 if(board[i][j] != '.') {
-                    if(set.contains(board[i][j]))
+                    if(rowSet.contains(board[i][j]))
                         return false;
                     else
-                        set.add(board[i][j]);
+                        rowSet.add(board[i][j]);
                 }
-            }
-        }
-        for(int i = 0; i < 9 ; i++) {
-            set.clear();
-            for(int j = 0; j < 9; j++) {
                 if(board[j][i] != '.') {
-                    if(set.contains(board[j][i]))
+                    if(colSet.contains(board[j][i]))
                         return false;
                     else
-                        set.add(board[j][i]);
+                        colSet.add(board[j][i]);
                 }
             }
         }
-        
+
+        Set<Character> set = new HashSet<Character>();
         for(int i = 0; i < 3; i++ ) {
             for(int j = 0; j < 3; j++) {
                 set.clear();
