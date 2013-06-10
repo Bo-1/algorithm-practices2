@@ -13,19 +13,26 @@ public class Solution {
     public ListNode swapPairs(ListNode head) {
         // Start typing your Java solution below
         // DO NOT write main() function
-        ListNode helper = new ListNode(0);
-        helper.next = head;
-        ListNode n1 = helper, n2 = head;
-        
-        while(n2 != null && n2.next != null){
-            ListNode temp = n2.next.next;
-            n2.next.next = n1.next;
-            n1.next = n2.next;
-            n2.next = temp;
-            n1 = n2;
-            n2 = n1.next;
+        if(head == null || head.next == null)
+            return head;
+        ListNode safeGuard = new ListNode(0);
+        safeGuard.next = head;
+        ListNode prev = safeGuard;
+        ListNode first = head;
+        ListNode second = head.next;
+        while(second != null && second.next!= null) {
+            prev.next = second;
+            first.next = second.next;
+            second.next = first;
+            prev = first;
+            first = first.next;
+            second = first.next;
         }
-        
-        return helper.next;
+        if(second != null && second.next == null) {
+            prev.next = second;
+            second.next = first;
+            first.next = null;
+        }
+        return safeGuard.next;
     }
 }
