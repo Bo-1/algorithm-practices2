@@ -10,29 +10,45 @@
  * }
  */
 public class Solution {
-    public ListNode swapPairs(ListNode head) {
+    public ListNode reverseBetween(ListNode head, int m, int n) {
         // Start typing your Java solution below
         // DO NOT write main() function
-        if(head == null || head.next == null)
+        if(m >= n || head == null || head.next == null)
             return head;
-        ListNode safeGuard = new ListNode(0);
-        safeGuard.next = head;
-        ListNode prev = safeGuard;
-        ListNode first = head;
-        ListNode second = head.next;
-        while(second != null && second.next!= null) {
-            prev.next = second;
-            first.next = second.next;
-            second.next = first;
-            prev = first;
-            first = first.next;
-            second = first.next;
+        ListNode current = head;
+        ListNode safe = new ListNode(0);
+        safe.next = head;
+        ListNode prev = safe;
+        int i = 1;
+        while(i < m) {
+            prev = prev.next;
+            current = current.next;
+            i++;
         }
-        if(second != null && second.next == null) {
-            prev.next = second;
-            second.next = first;
-            first.next = null;
+        ListNode prevM = prev;
+        ListNode M = current;
+        while(i <= n) {
+            prev = prev.next;
+            current = current.next;
+            i++;
         }
-        return safeGuard.next;
+        ListNode afterN = current;
+        prev.next = null;
+        prevM.next = reverse(M);
+        M.next = afterN;
+        return safe.next;
+        
+    }
+    
+    public ListNode reverse(ListNode head) {
+        if(head == null)
+            return null;
+        if(head.next == null)
+            return head;
+        ListNode node = head.next;
+        head.next = null;
+        ListNode result = reverse(node);
+        node.next = head;
+        return result;
     }
 }
